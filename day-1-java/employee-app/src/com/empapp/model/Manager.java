@@ -20,10 +20,14 @@ public class Manager extends Employee {
         this.teamSize = teamSize;
     }
 
-
-    @Override
     public void printEmployee() {
-        super.printEmployee();
-        System.out.println("Team Size: " + teamSize);
+        System.out.println("Manager Details");
+        System.out.println("Name: " + getName());
+        System.out.println("Salary: " + getSalary());
+        System.out.println("Team Size: " + getTeamSize());
     }
+
+
+
+
 }

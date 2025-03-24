@@ -1,6 +1,6 @@
 package com.empapp.model;
 
-public class Employee {
+public abstract class Employee {
      private String name;
      private double salary;
 
@@ -25,10 +25,14 @@ public class Employee {
         this.salary = salary;
     }
 
-    public void printEmployee() {
-        System.out.println("Employee Details");
-        System.out.println("Name: " + name);
-        System.out.println("Salary: " + salary);
+    public abstract void printEmployee() ;
+
+    public void printEmployee(String message) {
+        System.out.println(message);
+    }
+
+    public void printEmployee(int data) {
+        System.out.println(data);
     }
 
 }
