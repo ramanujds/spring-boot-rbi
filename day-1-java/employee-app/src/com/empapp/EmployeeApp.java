@@ -15,7 +15,7 @@ public class EmployeeApp {
 
         Manager manager = new Manager("Robert",80000,10);
 
-        Developer dev = new Developer("Mi",60000,"Java");
+        Developer dev = new Developer("Mike",60000,"Java");
 
         EmployeeService service = new EmployeeServiceImpl();
 
@@ -26,6 +26,10 @@ public class EmployeeApp {
         catch (InvalidEmployeeException ex){
             System.out.println(ex.getMessage());
         }
+        String name = "John";
+        var e = service.getEmployee(name);
+
+        e.printEmployee();
 
 
 
