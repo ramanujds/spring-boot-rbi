@@ -1,5 +1,6 @@
 package com.empapp.service;
 
+import com.empapp.exception.EmployeeNotFoundException;
 import com.empapp.exception.InvalidEmployeeException;
 import com.empapp.model.Employee;
 
@@ -25,13 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployee(String name){
-        Employee employee = null;
         for (var e : employees){
             if (e.getName().equalsIgnoreCase(name)){
-                employee = e;
+                return e;
             }
         }
-        return employee;
+        throw new EmployeeNotFoundException("Employee with name "+name+" not found");
     }
 
 

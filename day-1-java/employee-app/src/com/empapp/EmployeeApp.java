@@ -1,5 +1,6 @@
 package com.empapp;
 
+import com.empapp.exception.EmployeeNotFoundException;
 import com.empapp.exception.InvalidEmployeeException;
 import com.empapp.model.Developer;
 import com.empapp.model.Employee;
@@ -27,14 +28,13 @@ public class EmployeeApp {
             System.out.println(ex.getMessage());
         }
         String name = "John";
-        var e = service.getEmployee(name);
-
-        e.printEmployee();
-
-
-
-
-
+        try {
+            var e = service.getEmployee(name);
+            e.printEmployee();
+        }
+        catch (EmployeeNotFoundException ex){
+            System.out.println(ex.getMessage());
+        }
 
 
 
