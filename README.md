@@ -1,1 +1,1 @@
-# spring-boot-rbi
+# spring-boot training RBI
