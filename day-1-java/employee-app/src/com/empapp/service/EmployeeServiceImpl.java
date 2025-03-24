@@ -34,5 +34,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         throw new EmployeeNotFoundException("Employee with name "+name+" not found");
     }
 
+    @Override
+    public void deleteEmployee(String name) {
+        var e = getEmployee(name);
+        employees.remove(e);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employees;
+    }
+
 
 }

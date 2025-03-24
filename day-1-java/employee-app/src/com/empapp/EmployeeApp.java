@@ -7,7 +7,7 @@ import com.empapp.model.Employee;
 import com.empapp.model.Manager;
 import com.empapp.model.Person;
 import com.empapp.service.EmployeeService;
-import com.empapp.service.EmployeeServiceDBBasedImpl;
+
 import com.empapp.service.EmployeeServiceImpl;
 
 public class EmployeeApp {
@@ -25,7 +25,7 @@ public class EmployeeApp {
             service.saveEmployee(manager);
         }
         catch (InvalidEmployeeException ex){
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
         String name = "John";
         try {
@@ -33,7 +33,7 @@ public class EmployeeApp {
             e.printEmployee();
         }
         catch (EmployeeNotFoundException ex){
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
 
 
