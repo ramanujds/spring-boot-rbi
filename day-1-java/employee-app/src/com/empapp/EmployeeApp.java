@@ -1,5 +1,6 @@
 package com.empapp;
 
+import com.empapp.exception.InvalidEmployeeException;
 import com.empapp.model.Developer;
 import com.empapp.model.Employee;
 import com.empapp.model.Manager;
@@ -14,12 +15,18 @@ public class EmployeeApp {
 
         Manager manager = new Manager("Robert",80000,10);
 
-        Developer dev = new Developer("Mike",60000,"Java");
+        Developer dev = new Developer("Mi",60000,"Java");
 
         EmployeeService service = new EmployeeServiceImpl();
 
-        service.saveEmployee(dev);
-        service.saveEmployee(manager);
+        try {
+            service.saveEmployee(dev);
+            service.saveEmployee(manager);
+        }
+        catch (InvalidEmployeeException ex){
+            System.out.println(ex.getMessage());
+        }
+
 
 
 
