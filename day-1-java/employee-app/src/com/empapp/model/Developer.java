@@ -1,6 +1,6 @@
 package com.empapp.model;
 
-public class Developer extends Employee {
+public final class Developer extends Employee {
 
     private String programmingLanguage;
 

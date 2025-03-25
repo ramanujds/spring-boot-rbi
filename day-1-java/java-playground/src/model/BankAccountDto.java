@@ -1,3 +1,5 @@
+package model;
+
 public record BankAccountDto(String accountNumber,
                              String accountHolderName,
                              double balance,

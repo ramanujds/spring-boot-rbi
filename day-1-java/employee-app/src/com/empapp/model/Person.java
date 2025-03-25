@@ -1,4 +1,5 @@
 package com.empapp.model;
 
-public class Person {
+public class Person  {
+
 }

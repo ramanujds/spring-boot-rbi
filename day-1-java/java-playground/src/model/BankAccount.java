@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Objects;
 
 public class BankAccount implements Comparable<BankAccount> {
@@ -48,7 +50,7 @@ public class BankAccount implements Comparable<BankAccount> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("BankAccount{");
+        final StringBuilder sb = new StringBuilder("model.BankAccount{");
         sb.append("accountNumber='").append(accountNumber).append('\'');
         sb.append(", accountHolderName='").append(accountHolderName).append('\'');
         sb.append(", balance=").append(balance);

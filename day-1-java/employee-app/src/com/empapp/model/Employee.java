@@ -1,6 +1,6 @@
 package com.empapp.model;
 
-public abstract class Employee {
+public abstract sealed class Employee permits Manager,Developer {
      private String name;
      private double salary;
 

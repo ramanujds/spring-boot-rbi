@@ -26,12 +26,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployee(String name){
-        for (var e : employees){
-            if (e.getName().equalsIgnoreCase(name)){
-                return e;
-            }
-        }
-        throw new EmployeeNotFoundException("Employee with name "+name+" not found");
+//        for (var e : employees){
+//            if (e.getName().equalsIgnoreCase(name)){
+//                return e;
+//            }
+//        }
+//        throw new EmployeeNotFoundException("Employee with name "+name+" not found");
+
+        return employees.stream().filter(e->e.getName().equalsIgnoreCase(name))
+                .findFirst().orElseThrow(()->new EmployeeNotFoundException("Employee with name "+name+" not found"));
+
     }
 
     @Override

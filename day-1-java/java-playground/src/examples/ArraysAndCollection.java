@@ -1,4 +1,7 @@
+package examples;
+
 import java.util.*;
+import java.util.function.Consumer;
 
 public class ArraysAndCollection {
 
@@ -19,7 +22,9 @@ public class ArraysAndCollection {
         list.add("Java");
         list.add("Python");
 
-        System.out.println(list);
+
+        list.forEach(e-> System.out.println(e));
+
 //
 
 //        for (var e: list) {

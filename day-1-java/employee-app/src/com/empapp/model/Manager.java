@@ -2,7 +2,7 @@ package com.empapp.model;
 
 import com.empapp.model.Employee;
 
-public class Manager extends Employee {
+public non-sealed class Manager extends Employee {
 
     private int teamSize;
 
