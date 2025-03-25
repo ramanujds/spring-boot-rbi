@@ -16,7 +16,7 @@ public class BankList {
 
 
        for (var bankAccount : bankAccounts) {
-           System.out.println(bankAccount);
+           System.out.println(bankAccount.accountHolderName());
        }
 
     }
