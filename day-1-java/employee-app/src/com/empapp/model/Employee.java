@@ -35,4 +35,12 @@ public abstract class Employee {
         System.out.println(data);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Employee{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", salary=").append(salary);
+        sb.append('}');
+        return sb.toString();
+    }
 }
