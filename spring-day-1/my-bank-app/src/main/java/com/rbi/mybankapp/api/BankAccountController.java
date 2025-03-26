@@ -3,6 +3,7 @@ package com.rbi.mybankapp.api;
 import com.rbi.mybankapp.model.BankAccount;
 import com.rbi.mybankapp.service.BankAccountService;
 import com.rbi.mybankapp.service.BankAccountServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class BankAccountController {
 
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public BankAccount createAccount(@RequestBody BankAccount account){
         return service.createAccount(account);
     }
