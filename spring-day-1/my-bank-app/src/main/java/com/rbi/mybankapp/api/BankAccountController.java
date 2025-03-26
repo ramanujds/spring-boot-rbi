@@ -2,6 +2,7 @@ package com.rbi.mybankapp.api;
 
 import com.rbi.mybankapp.model.BankAccount;
 import com.rbi.mybankapp.service.BankAccountService;
+import com.rbi.mybankapp.service.BankAccountServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
