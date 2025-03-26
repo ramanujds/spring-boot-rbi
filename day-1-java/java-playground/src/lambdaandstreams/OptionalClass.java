@@ -1,7 +1,9 @@
 package lambdaandstreams;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class OptionalClass {
 
@@ -15,6 +17,7 @@ public class OptionalClass {
                 .filter(e->e%2!=0)
                 .findFirst()
                 .orElseThrow(()->new ArithmeticException());
+
 
         System.out.println(output);
 
