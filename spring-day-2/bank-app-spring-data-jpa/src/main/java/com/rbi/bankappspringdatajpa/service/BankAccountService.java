@@ -8,14 +8,14 @@ public interface BankAccountService {
 
     BankAccount createAccount(BankAccount account);
 
-    BankAccount getAccountById(long id);
+    BankAccount getAccountDetails(String accountNumber);
 
     List<BankAccount> getAllAccount();
 
-    void removeAccount(long id);
+    void removeAccount(String accountNumber);
 
-    BankAccount deposit(long id, double amount);
+    BankAccount deposit(String accountNumber, double amount);
 
-    BankAccount withdraw(long id, double amount);
+    BankAccount withdraw(String accountNumber, double amount);
 
 }

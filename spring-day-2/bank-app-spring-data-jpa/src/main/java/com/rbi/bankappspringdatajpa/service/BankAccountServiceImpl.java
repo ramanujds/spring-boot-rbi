@@ -19,27 +19,40 @@ public class BankAccountServiceImpl implements BankAccountService{
         return accountRepo.save(account);
     }
 
-    public BankAccount getAccountById(long id) {
-        return accountRepo.findById(id).get();
+    @Override
+    public BankAccount getAccountDetails(String accountNumber) {
+        return accountRepo.findByAccountNumber(accountNumber).orElse(null);
     }
+
 
     public List<BankAccount> getAllAccount() {
         return accountRepo.findAll();
     }
 
-    public void removeAccount(long id) {
-        accountRepo.deleteById(id);
+    @Override
+    public void removeAccount(String accountNumber) {
+        BankAccount account = getAccountDetails(accountNumber);
+        if (account!=null){
+            accountRepo.delete(account);
+        }
     }
 
-    public BankAccount deposit(long id, double amount) {
-        BankAccount account = getAccountById(id);
+
+    public BankAccount deposit(String accountNumber, double amount) {
+        BankAccount account = getAccountDetails(accountNumber);
+        if (account==null){
+            throw new RuntimeException("Invalid Account Details");
+        }
         double updatedBalance = account.getBalance()+amount;
         account.setBalance(updatedBalance);
         return accountRepo.save(account);
     }
 
-    public BankAccount withdraw(long id, double amount) {
-        BankAccount account = getAccountById(id);
+    public BankAccount withdraw(String accountNumber, double amount) {
+        BankAccount account = getAccountDetails(accountNumber);
+        if (account==null){
+            throw new RuntimeException("Invalid Account Details");
+        }
         if(amount>account.getBalance()) {
             throw new RuntimeException("Insufficient account balance");
         }
