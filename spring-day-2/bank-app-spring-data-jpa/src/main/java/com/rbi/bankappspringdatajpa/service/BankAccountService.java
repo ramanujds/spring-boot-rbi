@@ -1,5 +1,7 @@
 package com.rbi.bankappspringdatajpa.service;
 
+import com.rbi.bankappspringdatajpa.dto.AccountTransactionRequestDto;
+import com.rbi.bankappspringdatajpa.dto.AccountTransactionResponseDto;
 import com.rbi.bankappspringdatajpa.model.BankAccount;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public interface BankAccountService {
 
     void removeAccount(String accountNumber);
 
-    BankAccount deposit(String accountNumber, double amount);
+    AccountTransactionResponseDto deposit(AccountTransactionRequestDto transactionRequestDto);
 
     BankAccount withdraw(String accountNumber, double amount);
 

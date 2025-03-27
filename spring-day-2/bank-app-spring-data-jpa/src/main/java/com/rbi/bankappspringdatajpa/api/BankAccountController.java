@@ -1,5 +1,7 @@
 package com.rbi.bankappspringdatajpa.api;
 
+import com.rbi.bankappspringdatajpa.dto.AccountTransactionRequestDto;
+import com.rbi.bankappspringdatajpa.dto.AccountTransactionResponseDto;
 import com.rbi.bankappspringdatajpa.model.BankAccount;
 import com.rbi.bankappspringdatajpa.service.BankAccountService;
 import org.springframework.http.HttpStatus;
@@ -48,10 +50,10 @@ public class BankAccountController {
         bankService.removeAccount(accountNumber);
     }
 
-    @PatchMapping("/{accountNumber}/deposit/{amount}")
+    @PatchMapping("/deposit")
     @ResponseStatus(code=HttpStatus.ACCEPTED)
-    public BankAccount depositAmount(@PathVariable String accountNumber, @PathVariable double amount){
-        return bankService.deposit(accountNumber,amount);
+    public AccountTransactionResponseDto depositAmount(@RequestBody AccountTransactionRequestDto accountTransactionRequest){
+        return bankService.deposit(accountTransactionRequest);
     }
 
 
