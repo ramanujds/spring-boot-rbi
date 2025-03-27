@@ -37,28 +37,28 @@ public class BankAccountController {
         return bankService.getAllAccount();
     }
 
-    @GetMapping("/{id}")
-    public BankAccount findAccountById(@PathVariable long id){
-        return bankService.getAccountById(id);
+    @GetMapping("/{accountNumber}")
+    public BankAccount findAccount(@PathVariable String accountNumber){
+        return bankService.getAccountDetails(accountNumber);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{accountNumber}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteAccountById(@PathVariable long id){
-        bankService.removeAccount(id);
+    public void deleteAccountById(@PathVariable String accountNumber){
+        bankService.removeAccount(accountNumber);
     }
 
-    @PatchMapping("/{id}/deposit/{amount}")
+    @PatchMapping("/{accountNumber}/deposit/{amount}")
     @ResponseStatus(code=HttpStatus.ACCEPTED)
-    public BankAccount depositAmount(@PathVariable long id, @PathVariable double amount){
-        return bankService.deposit(id,amount);
+    public BankAccount depositAmount(@PathVariable String accountNumber, @PathVariable double amount){
+        return bankService.deposit(accountNumber,amount);
     }
 
 
-    @PatchMapping("/{id}/withdraw/{amount}")
+    @PatchMapping("/{accountNumber}/withdraw/{amount}")
     @ResponseStatus(code=HttpStatus.ACCEPTED)
-    public BankAccount withdrawAmount(@PathVariable long id, @PathVariable double amount){
-        return bankService.withdraw(id,amount);
+    public BankAccount withdrawAmount(@PathVariable String accountNumber, @PathVariable double amount){
+        return bankService.withdraw(accountNumber,amount);
     }
 
 
