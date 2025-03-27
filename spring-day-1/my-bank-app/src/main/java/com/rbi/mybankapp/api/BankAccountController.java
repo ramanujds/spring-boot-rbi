@@ -37,6 +37,7 @@ public class BankAccountController {
 
 
     @DeleteMapping("/{accountNumber}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteAccount(@PathVariable("accountNumber") String accountNumber){
         service.removeAccount(accountNumber);
     }

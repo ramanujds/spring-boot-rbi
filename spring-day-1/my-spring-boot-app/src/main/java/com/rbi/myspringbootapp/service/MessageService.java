@@ -1,19 +1,24 @@
 package com.rbi.myspringbootapp.service;
 
-import com.rbi.myspringbootapp.dto.Message;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Service
 public class MessageService {
 
-    public Message fetchGoodMorningMessage(){
-        return new Message("Good Morning","John", LocalDateTime.now());
+
+    public String generateMessage(){
+        LocalTime time = LocalTime.now();
+        if(time.isAfter(LocalTime.NOON)){
+            return "Good Afternoon";
+        }
+        return "Good Morning";
     }
 
-    public Message fetchGoodNightMessage(){
-        return new Message("Good Night","Steve",LocalDateTime.now());
-    }
 
 }
+
+
