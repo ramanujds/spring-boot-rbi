@@ -1,6 +1,10 @@
 package com.rbi.bankappspringdatajpa.dto;
 
-import java.time.LocalDateTime;
+import com.rbi.bankappspringdatajpa.model.TransactionType;
 
-public record AccountTransactionResponseDto(String accountNumber, long transactionId, LocalDateTime time, double amount, String type, double balance) {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+public record AccountTransactionResponseDto(String accountNumber, long transactionId, LocalDate date, LocalTime time, double amount, TransactionType type) {
 }

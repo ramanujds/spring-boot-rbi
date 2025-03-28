@@ -6,11 +6,12 @@ spring:
     password: password
 
   jpa:
-    generate-ddl: true
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+        hbm2ddl:
+          auto: update
 
 server:
   port: 5000

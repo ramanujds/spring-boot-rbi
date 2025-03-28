@@ -2,11 +2,17 @@ package com.rbi.bankappspringdatajpa.service;
 
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionRequestDto;
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionResponseDto;
+import com.rbi.bankappspringdatajpa.model.AccountTransaction;
 import com.rbi.bankappspringdatajpa.model.BankAccount;
+import com.rbi.bankappspringdatajpa.model.TransactionType;
+import com.rbi.bankappspringdatajpa.repository.AccountTransactionRepo;
 import com.rbi.bankappspringdatajpa.repository.BankAccountRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Random;
 
@@ -14,9 +20,11 @@ import java.util.Random;
 public class BankAccountServiceImpl implements BankAccountService{
 
     private BankAccountRepo accountRepo;
+    private AccountTransactionRepo transactionRepo;
 
-    public BankAccountServiceImpl(BankAccountRepo accountRepo) {
+    public BankAccountServiceImpl(BankAccountRepo accountRepo, AccountTransactionRepo transactionRepo) {
         this.accountRepo = accountRepo;
+        this.transactionRepo = transactionRepo;
     }
 
     public BankAccount createAccount(BankAccount account) {
@@ -42,6 +50,7 @@ public class BankAccountServiceImpl implements BankAccountService{
     }
 
 
+    @Transactional
     public AccountTransactionResponseDto deposit(AccountTransactionRequestDto transactionRequestDto) {
         BankAccount account = getAccountDetails(transactionRequestDto.accountNumber());
         if (account==null){
@@ -50,18 +59,34 @@ public class BankAccountServiceImpl implements BankAccountService{
         double updatedBalance = account.getBalance()+transactionRequestDto.amount();
         account.setBalance(updatedBalance);
         account = accountRepo.save(account);
-        Random rand = new Random(10000000);
-        long transactionId = rand.nextLong();
-        AccountTransactionResponseDto transactionResponseDto = new AccountTransactionResponseDto(
-                account.getAccountNumber(),
-                transactionId,
-                LocalDateTime.now(),
-                transactionRequestDto.amount(),
-                "Deposit",
-                account.getBalance()
-        );
-        return transactionResponseDto;
+        AccountTransaction transaction = createTransaction(account, transactionRequestDto.amount(), TransactionType.CREDIT);
+        transaction = transactionRepo.save(transaction);
+    //    account.getTransactions().add(transaction);
+        return getTransactionResponseDto(transaction);
 
+    }
+
+    private AccountTransaction createTransaction(BankAccount account, double amount, TransactionType type){
+        Random rand = new Random(10000000);
+        long transactionId = Math.abs(rand.nextLong());
+        AccountTransaction transaction = new AccountTransaction(transactionId,
+                LocalDate.now(), LocalTime.now(),
+                amount,
+                type,
+                account);
+        return transaction;
+    }
+
+    private AccountTransactionResponseDto getTransactionResponseDto(AccountTransaction transaction){
+        AccountTransactionResponseDto dto = new AccountTransactionResponseDto(
+                transaction.getAccount().getAccountNumber(),
+                transaction.getTransactionId(),
+                transaction.getDate(),
+                transaction.getTime(),
+                transaction.getAmount(),
+                transaction.getTransactionType()
+        );
+        return dto;
     }
 
     public BankAccount withdraw(String accountNumber, double amount) {
@@ -76,4 +101,7 @@ public class BankAccountServiceImpl implements BankAccountService{
         account.setBalance(updatedBalance);
         return accountRepo.save(account);
     }
+
+
+
 }
