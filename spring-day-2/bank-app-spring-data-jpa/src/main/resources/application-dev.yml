@@ -1,11 +1,5 @@
 
-account:
-  min_balance: 1000
-
-
 spring:
-  profiles:
-    active: ${ACTIVE_PROFILE:}
   datasource:
     url: jdbc:mysql://localhost:3306/bank_db
     username: root
@@ -13,8 +7,11 @@ spring:
 
   jpa:
     properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
         hbm2ddl:
           auto: update
 
 server:
-  port: 5000
+  port: 8000

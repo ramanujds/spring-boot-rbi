@@ -2,6 +2,7 @@ package com.rbi.bankappspringdatajpa.service;
 
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionRequestDto;
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionResponseDto;
+import com.rbi.bankappspringdatajpa.exception.DuplicateRecordException;
 import com.rbi.bankappspringdatajpa.exception.RecordNotFoundException;
 import com.rbi.bankappspringdatajpa.model.AccountTransaction;
 import com.rbi.bankappspringdatajpa.model.BankAccount;
@@ -9,6 +10,8 @@ import com.rbi.bankappspringdatajpa.model.TransactionType;
 import com.rbi.bankappspringdatajpa.repository.AccountTransactionRepo;
 import com.rbi.bankappspringdatajpa.repository.BankAccountRepo;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,12 +26,18 @@ public class BankAccountServiceImpl implements BankAccountService{
     private BankAccountRepo accountRepo;
     private AccountTransactionRepo transactionRepo;
 
+    @Value("${account.min_balance}")
+    private double minBalance;
+
     public BankAccountServiceImpl(BankAccountRepo accountRepo, AccountTransactionRepo transactionRepo) {
         this.accountRepo = accountRepo;
         this.transactionRepo = transactionRepo;
     }
 
     public BankAccount createAccount(BankAccount account) {
+        if (accountRepo.existsById(account.getAccountNumber())){
+            throw new DuplicateRecordException("Account with Account Number ["+account.getAccountNumber()+"] Already Exists");
+        }
         return accountRepo.save(account);
     }
 
