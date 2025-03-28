@@ -2,6 +2,7 @@ package com.rbi.bankappspringdatajpa.service;
 
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionRequestDto;
 import com.rbi.bankappspringdatajpa.dto.AccountTransactionResponseDto;
+import com.rbi.bankappspringdatajpa.exception.RecordNotFoundException;
 import com.rbi.bankappspringdatajpa.model.AccountTransaction;
 import com.rbi.bankappspringdatajpa.model.BankAccount;
 import com.rbi.bankappspringdatajpa.model.TransactionType;
@@ -33,7 +34,7 @@ public class BankAccountServiceImpl implements BankAccountService{
 
     @Override
     public BankAccount getAccountDetails(String accountNumber) {
-        return accountRepo.findByAccountNumber(accountNumber).orElse(null);
+        return accountRepo.findByAccountNumber(accountNumber).orElseThrow(()->new RecordNotFoundException("Account with Account Number ["+accountNumber+"] Not Found"));
     }
 
 
