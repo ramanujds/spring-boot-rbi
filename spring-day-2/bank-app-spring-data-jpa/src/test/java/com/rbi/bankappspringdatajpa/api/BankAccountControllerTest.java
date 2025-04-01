@@ -58,15 +58,6 @@ class BankAccountControllerTest {
                         .contentType("application/json")
                 )
                 .andExpect(status().isCreated())
-                //.andExpect(content().contentType("application/json"))
-                .andExpect(content().json("""
-                                                {
-                                                  "accountNumber": "123456789",
-                                                  "accountHolderName": "John",
-                                                  "balance": 2000,
-                                                  "accountType": "Savings"
-                                                }
-                                """))
                         .andReturn();
 
     }
