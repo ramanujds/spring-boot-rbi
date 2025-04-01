@@ -29,6 +29,7 @@ public class BankAccount {
     private double balance;
     private String accountType;
     @OneToMany(mappedBy = "account")
+    @JsonIgnore
     private Set<AccountTransaction> transactions = new HashSet<>();
 
 }
