@@ -41,21 +41,21 @@ public class AuthConfig {
     }
 
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails adminUser = User.withUsername("admin")
-//                .password("$2a$12$pkA4M.dVrkAuGAwaytPMpuq/4qC1JoHTWkeO6grjadMO7Yr91/2Ai")
-                .password("admin1234")
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user = User.withUsername("user")
-                .password("pass1234")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(adminUser,user);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(){
+//        UserDetails adminUser = User.withUsername("admin")
+////                .password("$2a$12$pkA4M.dVrkAuGAwaytPMpuq/4qC1JoHTWkeO6grjadMO7Yr91/2Ai")
+//                .password("admin1234")
+//                .roles("ADMIN")
+//                .build();
+//
+//        UserDetails user = User.withUsername("user")
+//                .password("pass1234")
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(adminUser,user);
+//    }
 
 //    @Bean
 //    public PasswordEncoder getPasswordEncoder(){
