@@ -1,14 +1,18 @@
 package com.rbi.springsecurityapp.config;
 
+import com.rbi.springsecurityapp.security.JwtAuthFilter;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,25 +21,34 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class AuthConfig {
 
 
     private static final Logger log = LoggerFactory.getLogger(AuthConfig.class);
 
+    private JwtAuthFilter authFilter;
 
+    public AuthConfig(JwtAuthFilter authFilter) {
+        this.authFilter = authFilter;
+    }
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(
                 request -> request.requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
-                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/hello","/users/**").permitAll()
         )
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
+                .csrf(c->c.disable())
+                .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 
     }
@@ -57,16 +70,16 @@ public class AuthConfig {
 //        return new InMemoryUserDetailsManager(adminUser,user);
 //    }
 
-//    @Bean
-//    public PasswordEncoder getPasswordEncoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-
     @Bean
-    public PasswordEncoder getDefaultPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public PasswordEncoder getDefaultPasswordEncoder(){
+//        return NoOpPasswordEncoder.getInstance();
+//    }
+//
 
 
 }
